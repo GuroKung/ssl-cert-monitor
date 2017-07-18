@@ -20,15 +20,15 @@ function validate(host, port) {
           from: certInfo.valid_from,
           to: certInfo.valid_to
         };
-        // console.log(`Host '${host}' certificate authorized: ${res.socket.authorized}`);
-        // console.log(dateInfo);
-        resolve(
+        console.log(
           `Host '${host}' certificate authorized: ${res.socket.authorized}`
         );
+        console.log(dateInfo);
+        resolve({ host, dateInfo });
       })
       // Error handling here
       .on("error", e => {
-        // console.error(`Host '${host}'`, e.message);
+        console.error(`Host '${host}'`, e.message);
         resolve(`Host '${host}'`, e.message);
       });
     req.end();
@@ -39,7 +39,7 @@ async function validateHosts() {
   console.log("Start validating hosts...");
   console.log("====================================");
   let results = await Promise.all(hosts.map(host => validate(host, 443)));
-  results.forEach((result) => console.log(result));
+  //   results.forEach((result) => console.log(result));
   console.log("====================================");
   console.log("All Done");
   console.log("====================================");
