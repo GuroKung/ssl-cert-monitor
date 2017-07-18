@@ -1,0 +1,8 @@
+{
+    "hosts": [
+        "google.com",
+        "expired.badssl.com",
+        "wrong.host.badssl.com",
+        "self-signed.badssl.com"
+    ]
+}
