@@ -1,15 +1,18 @@
 const https = require("https");
-const moment = require('moment');
+const moment = require("moment");
 const { hosts } = require("../config");
+
+let sortedLists = {};
+let expireLists = {};
 
 function expirationFormatter(host, validFrom, validTo) {
   let currentDate = moment(new Date());
-  let toDate = moment(new Date (validTo));
+  let toDate = moment(new Date(validTo));
   return {
     host,
     from: validFrom,
     to: validTo,
-    expires: toDate.diff(currentDate, 'days')
+    expires: toDate.diff(currentDate, "days")
   };
 }
 
@@ -21,7 +24,7 @@ function validate(host) {
   const options = {
     host: host,
     method: "GET",
-    agent: false
+    agent: false // create a new agent just for this one request
   };
 
   return new Promise((resolve, reject) => {
@@ -31,7 +34,7 @@ function validate(host) {
         const certData = expirationFormatter(
           host,
           certInfo.valid_from,
-          certInfo.valid_to,
+          certInfo.valid_to
         );
         resolve(certData);
       })
@@ -44,11 +47,34 @@ function validate(host) {
 async function validateHosts() {
   console.log("Start validating hosts...");
   console.log("====================================");
+
   let results = await Promise.all(hosts.map(host => validate(host, 443)));
-  results.forEach(result => console.log(result));
+
+  sortedLists = getSortedLists(results);
+  expireLists = getExpireLists(results);
+
+  console.log(sortedLists);
+  console.log(expireLists);
+
   console.log("====================================");
   console.log("All Done");
   console.log("====================================");
 }
 
-module.exports = { validateHosts };
+function getExpireLists(lists) {
+  return {
+    items: lists
+      .filter(data => typeof data == "object" && data.expires <= 30)
+      .sort((a, b) => a.expires - b.expires)
+  };
+}
+
+function getSortedLists(lists) {
+  return {
+    items: lists
+      .filter(data => typeof data == "object")
+      .sort((a, b) => a.expires - b.expires)
+  };
+}
+
+module.exports = { validateHosts, sortedLists, expireLists };

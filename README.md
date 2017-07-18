@@ -9,13 +9,13 @@ Configuration
 -------------
 All configuration store in config.json file
 - hosts : lists of host we want to monitor
-- 
+- scheduleTime: cronjob
 
 API endpoint
 -------------
 api/list
 A sorted list of host information and expiration date
 
-api/checkexpire
+api/expire
 show how many and what cert is about to expire
 

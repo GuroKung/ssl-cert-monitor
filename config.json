@@ -1,9 +1,13 @@
 {
+    "schedule": {
+        "time": "0 0 * * * *",
+        "timeZone": "Asia/Bangkok"
+    },
     "hosts": [
+        "pantip.com",
         "google.com",
         "facebook.com",
         "twitter.com",
-        "pantip.com",
         "expired.badssl.com",
         "wrong.host.badssl.com",
         "self-signed.badssl.com"
