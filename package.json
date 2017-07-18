@@ -9,5 +9,8 @@
   "keywords": [],
   "author": "GuroKung",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "cron": "^1.2.1",
+    "moment": "^2.18.1"
+  }
 }
