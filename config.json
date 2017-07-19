@@ -1,8 +1,9 @@
 {
     "schedule": {
-        "time": "*/15 * * * * *",
+        "time": "0 0 * * * *",
         "timeZone": "Asia/Bangkok"
     },
+    "expireLimit": 30,
     "hosts": [
         "pantip.com",
         "google.com",

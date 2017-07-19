@@ -1,21 +1,46 @@
 
-Features
+## Features
 -------------
-1. api to check how many and what cert is about to expire
-2. sort list of host by exp date
-3. schedule update
+1. Check how many and what certificate is about to expire by given limit of time
+2. Sorted list of host by expiration date
+3. Schedule update
+4. Provide API endpoint
 
-Configuration
+## Configuration
 -------------
 All configuration store in config.json file
 - hosts : lists of host we want to monitor
-- scheduleTime: cronjob
+- scheduleTime: cronjob  
+e.g. "0 0 * * * *"
+- expireLimit: limit of expiration days   
+e.g. 30 > want to check for cert that's expire in 30 days 
 
-API endpoint
+## API endpoint
 -------------
-api/list
+### GET api/list
 A sorted list of host information and expiration date
 
-api/expire
-show how many and what cert is about to expire
+### GET api/expire  
+show what certificate is about to expire
 
+### Example response
+```
+{
+    number: 3,
+    items: [
+        {
+            host: 'a.com',
+            from: DATE,
+            to: DATE,
+            expire: 1
+        },
+        {
+            host: 'b.com',
+            from: DATE,
+            to: DATE,
+            expire: 2
+        },
+        ...
+    ]
+}
+```

@@ -14,5 +14,8 @@
     "cron": "^1.2.1",
     "express": "^4.15.3",
     "moment": "^2.18.1"
+  },
+  "devDependencies": {
+    "debug": "^2.6.8"
   }
 }

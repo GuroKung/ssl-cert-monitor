@@ -1,6 +1,6 @@
 const https = require("https");
 const moment = require("moment");
-const { hosts } = require("../config");
+const { hosts, expireLimit } = require("../config");
 const fileService = require("./fileService");
 
 function expirationFormatter(host, validFrom, validTo) {
@@ -68,7 +68,7 @@ async function validateHosts() {
 function getExpireLists(lists) {
   return {
     items: lists
-      .filter(data => typeof data == "object" && data.expires <= 30)
+      .filter(data => typeof data == "object" && data.expires <= expireLimit)
       .sort((a, b) => a.expires - b.expires)
   };
 }
