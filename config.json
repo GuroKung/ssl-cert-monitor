@@ -1,6 +1,6 @@
 {
     "schedule": {
-        "time": "0 0 * * * *",
+        "time": "*/15 * * * * *",
         "timeZone": "Asia/Bangkok"
     },
     "hosts": [

@@ -1,10 +1,11 @@
 const express = require("express");
 const api = express.Router();
 
-let { expireLists, sortedLists } = require('../src/validator');
+const expireLists = require('../src/json/expireLists');
+const sortLists = require('../src/json/sortLists');
 
 api.get("/list", (req, res) => {
-  res.send(sortedLists);
+  res.send(sortLists);
 });
 
 api.get("/expire", (req, res) => {

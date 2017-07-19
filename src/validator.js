@@ -1,9 +1,7 @@
 const https = require("https");
 const moment = require("moment");
 const { hosts } = require("../config");
-
-let sortedLists = {};
-let expireLists = {};
+const fileService = require("./fileService");
 
 function expirationFormatter(host, validFrom, validTo) {
   let currentDate = moment(new Date());
@@ -21,6 +19,8 @@ function validate(host) {
     throw new Error("Invalid host.");
   }
 
+  console.log(`Start checking ${host}...`);
+
   const options = {
     host: host,
     method: "GET",
@@ -36,6 +36,9 @@ function validate(host) {
           certInfo.valid_from,
           certInfo.valid_to
         );
+        // console.log(
+        //   `Host '${host}' certificate authorized: ${res.socket.authorized}`
+        // );
         resolve(certData);
       })
       // Error handling here
@@ -48,13 +51,14 @@ async function validateHosts() {
   console.log("Start validating hosts...");
   console.log("====================================");
 
-  let results = await Promise.all(hosts.map(host => validate(host, 443)));
+  try {
+    let results = await Promise.all(hosts.map(host => validate(host, 443)));
 
-  sortedLists = getSortedLists(results);
-  expireLists = getExpireLists(results);
-
-  console.log(sortedLists);
-  console.log(expireLists);
+    await fileService.exportToJsonFile("sortLists", getSortedLists(results));
+    await fileService.exportToJsonFile("expireLists", getExpireLists(results));
+  } catch (error) {
+    console.error(error);
+  }
 
   console.log("====================================");
   console.log("All Done");
@@ -77,4 +81,4 @@ function getSortedLists(lists) {
   };
 }
 
-module.exports = { validateHosts, sortedLists, expireLists };
+module.exports = { validateHosts };

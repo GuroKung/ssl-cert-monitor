@@ -4,10 +4,9 @@ const { CronJob } = require("cron");
 const validator = require("./src/validator");
 const { schedule } = require("./config");
 
-const apiRoute = require('./routes/api');
+const apiRoute = require("./routes/api");
 
 const app = express();
-
 
 const monitorJob = new CronJob({
   cronTime: schedule.time,
@@ -22,12 +21,12 @@ const monitorJob = new CronJob({
 // run job
 monitorJob.start();
 
-app.use('/api', apiRoute);
+app.use("/api", apiRoute);
 
-app.set('port', (process.env.PORT || 5000));
+app.set("port", process.env.PORT || 5000);
 
-app.listen(app.get('port'), () => {
-    console.log('Node app is running on port', app.get('port'));
+app.listen(app.get("port"), () => {
+  console.log("Node app is running on port", app.get("port"));
 });
 
 module.exports = app;
