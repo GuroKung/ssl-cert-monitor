@@ -81,4 +81,10 @@ function getSortedLists(lists) {
   };
 }
 
-module.exports = { validateHosts };
+module.exports = {
+  expirationFormatter,
+  validate,
+  validateHosts,
+  getExpireLists,
+  getSortedLists
+};

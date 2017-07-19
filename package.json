@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "keywords": [],
   "author": "GuroKung",
@@ -16,6 +16,7 @@
     "moment": "^2.18.1"
   },
   "devDependencies": {
-    "debug": "^2.6.8"
+    "debug": "^2.6.8",
+    "jasmine": "^2.6.0"
   }
 }
