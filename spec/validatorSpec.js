@@ -76,7 +76,7 @@ describe("Validator", () => {
         host: "test.com",
         from: "Jul 12 12:02:58 2017 GMT",
         to: "Oct  4 11:57:00 2017 GMT",
-        expires: 77
+        expires: 75
       });
     });
   });
